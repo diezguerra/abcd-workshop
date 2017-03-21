@@ -1,29 +1,22 @@
 dist: trusty
 sudo: false
-
 branches:
   only:
-    - master
-
+  - master
 env:
-  # This environment variable tells Terraform not to prompt for input. This is
-  # not required, but if we make a mistake, the Travis builder will hang waiting
-  # for user input, tieing up unnecessary resources.
-  - TF_INPUT=false
-
-# Install terraform
+- TF_INPUT=false
 before_install:
-  - curl -sLo /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.8.8/terraform_0.8.8_linux_amd64.zip
-  - unzip /tmp/terraform.zip -d /tmp
-  - mkdir ~/bin
-  - mv /tmp/terraform ~/bin
-  - export PATH="~/bin:$PATH"
-
+- curl -sLo /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.8.8/terraform_0.8.8_linux_amd64.zip
+- unzip /tmp/terraform.zip -d /tmp
+- mkdir ~/bin
+- mv /tmp/terraform ~/bin
+- export PATH="~/bin:$PATH"
 script: terraform plan ./terraform
-
 deploy:
 - provider: script
   skip_cleanup: true
   script: terraform apply ./terraform
   on:
     branch: master
+dd:
+  secure: UT/sSC6SD/cgyZW/+1zOnrkXB2NHHgjL0ojX/ZX5fD84HohXGyBTPPw0A/SjA/mpcJL2dfCoC6bSiUHMj3cEXz3BTLUVdv3rL7RKQiPejB3KOji5klSdxcf9iB/dNdfrASgOS0q7meP9vVR2Bw7MiFBRugINoLM7NbmUeavVlm9HsLg6p9tZhP/fvJwiEaaT5BpmDUcANGpYPLlohSQeTcX+Gmcy9n1EW3Rphay3H8iFIkgomCeY23jaf6+NhPcrjKY0bGapndfEOoFHX35dz0xpnrLa1GDqstqqF1yyFXFC8Vwscr3Xt0Z//yIHAPO4kEno2inAUnElIpwr9Rpq5SFd0qPZdLbflRHEJjtnsQxIdtODApvLZ3OywSTMQc/6EboczOgQTszAt1awtB62AZkUztRMYmGZ9WusxH9HmErKZBmZ7Q7RGWfdv2RMb80BAu65loknZE55YbaTP+wcbP7xxbm21A3DVnx/XVins6mN2y+bE7YQKYm35p2cbpZ7ZrxPW/g94F19XcVVD+g1V1OCG0B0vN/L4Wlby7X65uw3jRr0VstK5QOd+3sxoGOeTFhVmPwVr7If2hOxi5PcKlj0/Z8o1uwm3eI0f/8oZWWpDMkr5FVVd0dPglmAiHumzzTlWfZ64TvZzvYu3KOb4aWAnNqQ7+Q3Sx0KMnW9tjk=
