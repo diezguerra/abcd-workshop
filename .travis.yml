@@ -1,8 +1,6 @@
 dist: trusty
 sudo: false
-branches:
-  only:
-  - master
+
 env:
   matrix:
   - TF_INPUT=false
